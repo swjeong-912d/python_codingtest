@@ -6,19 +6,13 @@ class Solution:
     def reorderLogFiles(self, logs: List[str]) -> List[str]:
         letter_logs = []
         digit_logs = []
-        for i in range(len(logs)):
-            log_ind = logs[i].find(' ')
-            log_id = logs[i][:log_ind]
-            log_item = logs[i][(log_ind+1):]
-            t = re.findall("[0-9]",log_item)
-            if len(t) == 0:
-                letter_logs.append(log_item + " " + log_id)
+        for log in logs:
+            log_key = log.split()[1]
+            if log_key.isdigit():
+                digit_logs.append(log)
             else:
-                digit_logs.append(logs[i])
-        letter_logs.sort()
-        for i in range(len(letter_logs)):
-            letter_ind = letter_logs[i].rfind(' ')
-            letter_logs[i] = letter_logs[i][letter_ind+1:]+" "+letter_logs[i][:letter_ind]
+                letter_logs.append(log)
+        letter_logs.sort(key = lambda x : (x.split()[1:], x.split()[:1]))
         return letter_logs+digit_logs
 
 def print_test():
