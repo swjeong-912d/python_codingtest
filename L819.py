@@ -1,23 +1,16 @@
 from typing import List
+import collections
 import re
 
 class Solution:
     def mostCommonWord(self, paragraph: str, banned: List[str]) -> str:
-        word_freqs = {}
-        for word in paragraph.split():
-            word = re.sub('[^a-z]','',word.lower())
-            if word in word_freqs.keys():
-                word_freqs[word] += 1
-            else:
-                word_freqs[word] = 1
+        paragraph = re.sub('[^a-z]', ' ', paragraph.lower())
+        word_freqs = collections.Counter(paragraph.split())
         for word in banned:
-            word_freqs[word] = 0
-        best = max(word_freqs.values())
-        for word, key in word_freqs.items():
-            if key == best:
-                return word
-
-
+            if word in word_freqs.keys():
+                word_freqs[word] = 0
+        item = word_freqs.most_common(1)
+        return item[0][0]
 def print_test():
     leet_sol = Solution()
-    print(leet_sol.mostCommonWord("Bob hit a ball, the hit BALL flew far after it was hit.",["hit"]))
+    print(leet_sol.mostCommonWord("Bob hit a ball, the   hit BALL flew far after it was hit.",["hit"]))
