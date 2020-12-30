@@ -4,28 +4,18 @@ from collections import defaultdict
 
 class Solution:
     def longestPalindrome(self, s: str) -> str:
-        max_s = ""
-        ls = s.lower()
+        def expand(left: int, right: int) -> str:
+            while left >= 0 and right < len(s) and s[left] == s[right]:
+                left -= 1
+                right += 1
+            return s[left+1:right]
+        pal_list = []
         for i in range(len(s)):
-            for eo in range(2):
-                st = i - 1
-                if eo == 1:
-                    et = i+1
-                else:
-                    et = i
-                while st >= 0 and et < len(s):
-                    if ls[st] == ls[et]:
-                        st -= 1
-                        et += 1
-                    else:
-                        if len(ls[st+1:et]) > len(max_s):
-                            max_s = s[st+1:et]
-                        break
-                if len(ls[st + 1:et]) > len(max_s):
-                    max_s = s[st + 1:et]
-        return max_s
+            pal_list.append(expand(i,i+1))
+            pal_list.append(expand(i,i+2))
+        return max(pal_list,key=len)
 
 def print_test():
     leet_sol = Solution()
-    print(leet_sol.longestPalindrome("aaaaacaabaacaaaaa"))
+    print(leet_sol.longestPalindrome("aaaaaabaacaaaaa"))
 
