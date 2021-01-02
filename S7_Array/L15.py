@@ -3,27 +3,27 @@ class Solution:
     def threeSum(self, nums: List[int]) -> List[List[int]]:
         nums.sort()
         threesum_list = []
-        for (m,num) in enumerate(nums):
-            if m == 0 or (m > 1 and nums[m-2] == nums[m]):
+        for (i,num) in enumerate(nums):
+            if i > 1 and nums[i-1] == nums[i]:
                 continue
-            if nums[m-1] != nums[m]:
-                l = 0
-            else:
-                l = m-1
+            l = i+1
             r = len(nums)-1
-            while l < m and r > m:
+            while l < r:
                 if nums[l]+nums[r]+num > 0:
                     r -= 1
-                    while nums[r] == nums[r+1] and r > m:
+                    while nums[r] == nums[r+1] and r > l:
                         r -= 1
                 elif nums[l]+nums[r]+num < 0:
                     l += 1
-                    while nums[l] == nums[l-1] and l < m:
+                    while nums[l] == nums[l-1] :
                         l += 1
                 else:
-                    threesum_list.append([nums[l],nums[m],nums[r]])
+                    threesum_list.append([nums[i],nums[l],nums[r]])
+                    l += 1
+                    while nums[l] == nums[l-1] and l < r:
+                        l += 1
                     r -= 1
-                    while nums[r] == nums[r + 1] and r > m:
+                    while nums[r] == nums[r+1] and r > l:
                         r -= 1
         return threesum_list
 
