@@ -1,19 +1,17 @@
 import collections
 class Solution:
     def removeDuplicateLetters(self, s: str) -> str:
-        stack = []
-        dic = collections.defaultdict(lambda:False)
-        for ss in reversed(s):
-           if dic[ss] == False:
-               stack.append(ss)
-               dic[ss] = True
-           elif stack[-1] > ss:
-               for (i,elm) in enumerate(stack):
-                   if elm == ss:
-                       stack.pop(i)
-                       stack.append(ss)
-                       break
-        return ''.join(stack[::-1])
+        dic = {c: i for i, c in enumerate(s)}
+        seen = collections.defaultdict(bool)
+        output = []
+        for i, c in enumerate(s):
+            if not seen[c]:
+                while output and output[-1] > c and dic[output[-1]] > i:
+                    seen[output[-1]] = False
+                    output.pop()
+                output.append(c)
+                seen[c] = True
+        return ''.join(output)
 
 def print_test():
     leet_sol = Solution()
