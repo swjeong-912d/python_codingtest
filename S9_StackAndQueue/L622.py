@@ -3,7 +3,7 @@ class MyCircularQueue:
         self.front = 0
         self.len = 0
         self.maxlen = k
-        self.vals = list(k)
+        self.vals = [0] * k
 
     def enQueue(self, value: int) -> bool:
         if self.isFull():
