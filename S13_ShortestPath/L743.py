@@ -14,12 +14,10 @@ class Solution:
         heapq.heappush(pque, (path[k], k))
         while len(pque) > 0:
             u = heapq.heappop(pque)[1]
-            for vw in edges[u]:
-                v = vw[0]
-                w = vw[1]
+            for v, w in edges[u]:
                 if path[u] + w < path[v]:
                     path[v] = path[u] + w
-                    heapq.heappush(pque, (path[vw[0]], vw[0]))
+                    heapq.heappush(pque, (path[v], v))
         if max(path[1:]) == float('inf'):
             return -1
         else:
