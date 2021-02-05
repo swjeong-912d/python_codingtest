@@ -10,15 +10,14 @@ class Solution:
     def isBalanced(self, root: TreeNode) -> bool:
         def dfs(node):
             if not node:
-                return (0, True)
+                return 0
             L = dfs(node.left)
             R = dfs(node.right)
-            if L[1] and R[1] and abs(L[0] - R[0]) <= 1:
-                return (max(L[0], R[0]) + 1, True)
+            if L != -1 and R != -1 and abs(L - R) <= 1:
+                return max(L, R) + 1
             else:
-                return (max(L[0], R[0]) + 1, False)
-
+                return -1
         if not root:
             return True
         else:
-            return dfs(root)[1]
+            return dfs(root) != -1
