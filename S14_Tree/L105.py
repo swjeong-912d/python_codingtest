@@ -17,11 +17,8 @@ class Solution:
                 return node
             else:
                 return None
-        if not preorder:
-            return None
-        root = None
         self.ind = 0
-        return buildTree_pre(root,0,len(preorder))
+        return buildTree_pre(None,0,len(preorder))
 
 def print_test():
     leet_sol = Solution()
