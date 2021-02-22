@@ -2,17 +2,17 @@ import collections
 class Solution:
     def removeDuplicateLetters(self, s: str) -> str:
         dic = {c: i for i, c in enumerate(s)}
-        seen = collections.defaultdict(bool)
+        contain = collections.defaultdict(bool)
         output = []
         for i, c in enumerate(s):
-            if not seen[c]:
+            if not contain[c]:
                 while output and output[-1] > c and dic[output[-1]] > i:
-                    seen[output[-1]] = False
+                    contain[output[-1]] = False
                     output.pop()
                 output.append(c)
-                seen[c] = True
+                contain[c] = True
         return ''.join(output)
 
 def print_test():
     leet_sol = Solution()
-    print(leet_sol.removeDuplicateLetters("bcabc"))
+    print(leet_sol.removeDuplicateLetters("bcabcd"))
