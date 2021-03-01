@@ -6,15 +6,19 @@ class Solution:
         left = 0
         right = 0
         counter = collections.Counter()
+        maxlen = 0
         for (right) in range(1, len(s) + 1):
             counter[s[right - 1]] += 1
             mode_len = counter.most_common(1)[0][1]
             if mode_len + k < right - left:
                 counter[s[left]] -= 1
                 left += 1
-        return right - left
+            if maxlen < right - left:
+                maxlen = right - left
+                maxstr = s[left:right]
+        return maxstr
 
 
 def print_test():
     leet_sol = Solution()
-    print(leet_sol.characterReplacement('BAAB', 2))
+    print(leet_sol.characterReplacement('BAABCAAAAABSASAD', 2))
