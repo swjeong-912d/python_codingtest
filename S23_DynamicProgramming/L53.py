@@ -6,12 +6,8 @@ class Solution:
         ans = -10 ** 5 - 1
         sum = 0
         for n in nums:
-            if sum + n < 0:
-                sum = 0
-                ans = max(ans, n)
-            else:
-                sum += n
-                ans = max(ans, sum)
+            sum = max(n, sum + n)
+            ans = max(ans, sum)
         return ans
 
 
